@@ -24,7 +24,6 @@ class DashboardActivity : BaseActivity() {
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private var comicsAdapter: ComicsAdapter? = null
 
-    private var allDataCount = 0
     override fun getLayoutForActivity(): Int {
         return R.layout.activity_main
     }
