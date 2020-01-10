@@ -23,7 +23,7 @@
                   - Fetching data ,   
                   - Data fetched with success,  
                   - Data fetch with failure .   
-              I'm using a method in dashboard activity to render view depends on the state in which the activity is. And I know                 it sounds more like MVI than MVVM. 
+              I'm using a method in dashboard activity to render view depends on the state in which the activity is. 
   5) Searching:
         - For searching I just bind onChange event to EditText using RxBinding and on every change I'm making an request to backend. I set debounce on it to make a little less api calls and gives user time to put the whole comics title he want. 
   6) Improvements
