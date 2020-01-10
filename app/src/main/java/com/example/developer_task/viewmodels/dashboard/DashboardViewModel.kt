@@ -23,11 +23,10 @@ class DashboardViewModel(api: ApiClientInterface) : BaseViewModel(api) {
 
     fun getComicsList(dataOffset: String, title: String?) {
         launch {
-            api.getComicsData(dataOffset, title).subscribe({
+            api.getComicsData(dataOffset, title).retry().subscribe({
                 pageSize = it.data.limit
                 comicsData.value = it
             }, {
-                //comicsData.value = ComicsResponse(ComicsData())
             })
         }
     }
