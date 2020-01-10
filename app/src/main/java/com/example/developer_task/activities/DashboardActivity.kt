@@ -82,7 +82,7 @@ class DashboardActivity : BaseActivity() {
                 )
             )
             addOnScrollListener(object : PaginationListener(layoutManager as LinearLayoutManager, dashboardViewModel.pageSize) {
-                override fun loadMoreItems() {
+                override fun getNextDataPage() {
                     dashboardViewModel.isDataLoading = true
                     dashboardViewModel.currentDataOffset += dashboardViewModel.pageSize
                     comicsAdapter?.addProgressView()
@@ -97,7 +97,7 @@ class DashboardActivity : BaseActivity() {
                     return dashboardViewModel.isLastDataPage()
                 }
 
-                override fun isLoading(): Boolean {
+                override fun isDataFetching(): Boolean {
                    return dashboardViewModel.isDataLoading
                 }
 

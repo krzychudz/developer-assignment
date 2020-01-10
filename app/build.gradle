@@ -33,6 +33,8 @@ android {
             versionName "1.0"
             versionCode 1
             buildConfigField 'String', 'BASE_URL', '"https://gateway.marvel.com/"'
+            buildConfigField 'String', 'API_KEY', '"3d3ce5daa8ec0f7c17afc52bb68f15f7"'
+            buildConfigField 'String', 'HASH', '"a45bdb0bf57b06e72ad4c2c5854e2843"'
         }
 
         production {
@@ -41,6 +43,8 @@ android {
             versionName "1.0"
             versionCode 1
             buildConfigField 'String', 'BASE_URL', '"https://gateway.marvel.com/"'
+            buildConfigField 'String', 'API_KEY', '"3d3ce5daa8ec0f7c17afc52bb68f15f7"'
+            buildConfigField 'String', 'HASH', '"a45bdb0bf57b06e72ad4c2c5854e2843"'
         }
     }
 

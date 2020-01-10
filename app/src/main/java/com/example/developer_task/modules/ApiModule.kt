@@ -13,9 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-
-const val BASE_URL = "https://gateway.marvel.com/"
-
 val okHttpClientModule = module {
     single { createOkHttpClient() }
 }
@@ -44,14 +41,11 @@ internal class AuthInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-
         val originalHttpUrl: HttpUrl = request.url
-
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("apikey", "3d3ce5daa8ec0f7c17afc52bb68f15f7")
-            .addQueryParameter("hash", "a45bdb0bf57b06e72ad4c2c5854e2843")
+            .addQueryParameter("apikey", BuildConfig.API_KEY)
+            .addQueryParameter("hash", BuildConfig.HASH)
             .build()
-
         val requestBuilder: Request.Builder = request.newBuilder()
             .url(url)
         val finalRequest: Request = requestBuilder.build()

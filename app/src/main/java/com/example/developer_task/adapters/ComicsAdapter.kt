@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.developer_task.R
 import com.example.developer_task.adapters.viewholders.BaseViewHolder
 import com.example.developer_task.adapters.viewholders.ComicsViewHolder
@@ -12,6 +13,7 @@ import com.example.developer_task.adapters.viewholders.PaginationProgressBarView
 import com.example.developer_task.models.ComicsModel
 import com.example.developer_task.models.ThumbnailModel
 import com.example.developer_task.viewmodels.comics.ComicsViewModel
+
 
 class ComicsAdapter(private val context: Context) :
     RecyclerView.Adapter<BaseViewHolder>() {
@@ -21,6 +23,8 @@ class ComicsAdapter(private val context: Context) :
     private val VIEW_TYPE_LOADING = 0
     private val VIEW_TYPE_NORMAL = 1
     var isProgressBarVisible = false
+    private val requestOptions = RequestOptions()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
@@ -63,7 +67,11 @@ class ComicsAdapter(private val context: Context) :
         if (holder is ComicsViewHolder) {
             holder.comicsTitle.text = adapterData[position].title
             holder.comicsDescription.text = adapterData[position].description
-            Glide.with(context).load(adapterData[position].thumbnailUrl).into(holder.comicsImage)
+            requestOptions.placeholder(R.drawable.placeholder)
+            Glide.with(context).
+                setDefaultRequestOptions(requestOptions)
+                .load(adapterData[position].thumbnailUrl)
+                .into(holder.comicsImage)
         }
     }
 
