@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">developer_task</string>
+    <string name="dashboard.title">Marvel comics</string>
+    <string name="find.for.comics">Search for comics</string>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font.size.title">30sp</dimen>
+    <dimen name="font.size.title.small">18sp</dimen>
+    <dimen name="padding.normal">16dp</dimen>
+    <dimen name="margin.normal">16dp</dimen>
+</resources>
