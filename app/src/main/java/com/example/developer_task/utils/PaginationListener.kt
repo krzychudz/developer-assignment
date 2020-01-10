@@ -3,10 +3,8 @@ package com.example.developer_task.utils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class PaginationListener(private val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+abstract class PaginationListener(private val layoutManager: LinearLayoutManager, private val pageSize: Int) : RecyclerView.OnScrollListener() {
     companion object {
-        val PAGE_START = 1
-        val FINAL_PAGE = 10
         val PAGE_SIZE = 25
     }
 

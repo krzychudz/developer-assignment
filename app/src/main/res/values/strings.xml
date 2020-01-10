@@ -2,4 +2,5 @@
     <string name="app_name">developer_task</string>
     <string name="dashboard.title">Marvel comics</string>
     <string name="find.for.comics">Search for comics</string>
+    <string name="no.results.found">Sorry, no results found.</string>
 </resources>

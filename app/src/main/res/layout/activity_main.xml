@@ -40,4 +40,17 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <FrameLayout
+        android:id="@+id/noResultsSection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no.results.found"/>
+
+    </FrameLayout>
+
 </LinearLayout>

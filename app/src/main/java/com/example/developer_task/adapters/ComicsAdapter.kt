@@ -81,7 +81,7 @@ class ComicsAdapter(private val context: Context) :
 
     fun addProgressView() {
         isProgressBarVisible = true
-        adapterData.add(ComicsViewModel(ComicsModel("test", "test", ThumbnailModel("test","test"))))
+        adapterData.add(ComicsViewModel(ComicsModel("", "", ThumbnailModel("",""))))
         notifyItemInserted(adapterData.size - 1)
     }
 

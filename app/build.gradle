@@ -23,6 +23,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        staging {
+            dimension "app"
+            applicationId "com.example.developer_task.staging"
+            versionName "1.0"
+            versionCode 1
+            buildConfigField 'String', 'BASE_URL', '"https://gateway.marvel.com/"'
+        }
+
+        production {
+            dimension "app"
+            applicationId "com.example.developer_task.production"
+            versionName "1.0"
+            versionCode 1
+            buildConfigField 'String', 'BASE_URL', '"https://gateway.marvel.com/"'
+        }
+    }
+
 }
 
 dependencies {
