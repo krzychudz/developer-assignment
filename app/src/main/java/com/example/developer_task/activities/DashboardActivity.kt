@@ -62,6 +62,7 @@ class DashboardActivity : BaseActivity() {
                 if (dashboardViewModel.currentDataOffset != 0) {
                     comicsAdapter?.addAdapterData(comicsListState.data)
                 } else {
+                    comicsRecyclerView.scrollToPosition(0)
                     comicsAdapter?.setAdapterData(comicsListState.data)
                 }
             }
