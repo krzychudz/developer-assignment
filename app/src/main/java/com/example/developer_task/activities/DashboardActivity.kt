@@ -1,14 +1,15 @@
 package com.example.developer_task.activities
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.developer_task.R
 import com.example.developer_task.adapters.ComicsAdapter
 import com.example.developer_task.enums.DashboardScreenState
-import com.example.developer_task.models.ComicsResponse
 import com.example.developer_task.utils.PaginationListener
 import com.example.developer_task.viewmodels.dashboard.DashboardViewModel
+import com.example.developer_task.viewmodels.states.ComicsListState
 import com.jakewharton.rxbinding2.widget.textChanges
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit
 class DashboardActivity : BaseActivity() {
 
     companion object {
-        val SEARCH_DEBOUNCE_TIME_MS = 800
+        const val SEARCH_DEBOUNCE_TIME_MS = 800
     }
 
     private val dashboardViewModel: DashboardViewModel by viewModel()
@@ -45,27 +46,25 @@ class DashboardActivity : BaseActivity() {
             androidx.lifecycle.Observer {
                 it?.let {
                     handleComicsDataChange(it)
+                    renderViewDependsOnState(it)
                 }
             })
     }
 
-    private fun handleComicsDataChange(comicsResponse: ComicsResponse) {
+    private fun handleComicsDataChange(comicsListState: ComicsListState) {
         dashboardViewModel.isDataLoading = false
         if (comicsAdapter == null) {
             initRecyclerView()
         }
         comicsAdapter?.removeProgressView()
-        if (comicsResponse.data.results.isNotEmpty()) {
-            if (comicsResponse.data.offset != 0) {
-                dashboardViewModel.currentDataCount += comicsResponse.data.count
-                comicsAdapter?.addAdapterData(dashboardViewModel.prepareViewModelWithComicsData(comicsResponse.data.results))
-            } else {
-                dashboardViewModel.resetPaginationInfo(comicsResponse)
-                comicsAdapter?.setAdapterData(dashboardViewModel.prepareViewModelWithComicsData(comicsResponse.data.results))
+        comicsListState.data?.let {
+            if (it.isNotEmpty()) {
+                if (dashboardViewModel.currentDataOffset != 0) {
+                    comicsAdapter?.addAdapterData(comicsListState.data)
+                } else {
+                    comicsAdapter?.setAdapterData(comicsListState.data)
+                }
             }
-            toggleResultSection(DashboardScreenState.COMICS_FETCH_SUCCESS_STATE)
-        } else {
-            toggleResultSection(DashboardScreenState.COMICS_FETCH_FAILED_STATE)
         }
     }
 
@@ -105,25 +104,24 @@ class DashboardActivity : BaseActivity() {
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun initSearchbar() {
         serachbar.textChanges()
             .skip(1)
             .map{ it.toString() }
-            .doOnNext { toggleResultSection(DashboardScreenState.COMICS_FETCHING_STATE) }
+            .doOnNext { dashboardViewModel.setSearchingState() }
             .debounce(SEARCH_DEBOUNCE_TIME_MS.toLong(), TimeUnit.MILLISECONDS)
-            .subscribe({
+            .subscribe {
                 if (it.isNotEmpty()) {
                     dashboardViewModel.getComicsList("0", it)
                 } else {
                     dashboardViewModel.getComicsList("0", null)
                 }
-        }, {
-            toggleResultSection(DashboardScreenState.COMICS_FETCH_FAILED_STATE)
-        })
+            }
     }
 
-    private fun toggleResultSection(dashboardScreenState: DashboardScreenState) {
-        when(dashboardScreenState) {
+    private fun renderViewDependsOnState(comicsListState: ComicsListState) {
+        when(comicsListState.state) {
             DashboardScreenState.COMICS_FETCHING_STATE -> {
                 comicsRecyclerView.visibility = View.GONE
                 noResultsSection.visibility = View.GONE
@@ -135,6 +133,7 @@ class DashboardActivity : BaseActivity() {
                 progressBarSection.visibility = View.GONE
             }
             DashboardScreenState.COMICS_FETCH_FAILED_STATE -> {
+                errorText.text = comicsListState.error?.message
                 comicsRecyclerView.visibility = View.GONE
                 noResultsSection.visibility = View.VISIBLE
                 progressBarSection.visibility = View.GONE

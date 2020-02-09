@@ -46,10 +46,10 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/errorText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/no.results.found"/>
+            android:gravity="center" />
 
     </FrameLayout>
 
