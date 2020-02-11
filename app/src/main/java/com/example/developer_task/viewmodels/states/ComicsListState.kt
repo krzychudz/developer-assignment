@@ -3,9 +3,9 @@ package com.example.developer_task.viewmodels.states
 import com.example.developer_task.enums.DashboardScreenState
 import com.example.developer_task.viewmodels.comics.ComicsViewModel
 
-data class ComicsListState(val data: List<ComicsViewModel>?, val error: Throwable?, val state: DashboardScreenState) {
+data class ComicsListState(val data: List<ComicsViewModel>?, val error: String?, val state: DashboardScreenState) {
     companion object {
-        fun ERROR_STATE(error: Throwable?) =
+        fun ERROR_STATE(error: String?) =
             ComicsListState(null, error, DashboardScreenState.COMICS_FETCH_FAILED_STATE)
 
         fun LOADING_STATE() =

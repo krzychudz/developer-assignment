@@ -10,5 +10,4 @@ class ComicsViewModel(private val comics: ComicsModel) {
     get() = if (comics.description != null && comics.description.isNotEmpty()) comics.description else "No description found"
 
     val thumbnailUrl: String = "${comics.thumbnail.path}.${comics.thumbnail.extension}"
-
 }

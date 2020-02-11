@@ -134,7 +134,7 @@ class DashboardActivity : BaseActivity() {
                 progressBarSection.visibility = View.GONE
             }
             DashboardScreenState.COMICS_FETCH_FAILED_STATE -> {
-                errorText.text = comicsListState.error?.message
+                errorText.text = comicsListState.error
                 comicsRecyclerView.visibility = View.GONE
                 noResultsSection.visibility = View.VISIBLE
                 progressBarSection.visibility = View.GONE

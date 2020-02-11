@@ -27,7 +27,7 @@ class DashboardViewModel(api: ApiClientInterface) : BaseViewModel(api) {
             api.getComicsData(dataOffset, title).retry().subscribe({
                 handleComicsResponse(it)
             }, {
-                comicsData.value = ComicsListState.ERROR_STATE(it)
+                comicsData.value = ComicsListState.ERROR_STATE(it.message)
             })
         }
     }
@@ -48,7 +48,7 @@ class DashboardViewModel(api: ApiClientInterface) : BaseViewModel(api) {
                 ComicsListState.SUCCESS_STATE(prepareViewModelWithComicsData(comicsResponse.data.results))
         } else {
             comicsData.value =
-                ComicsListState.ERROR_STATE(Throwable("Sorry, no results found"))
+                ComicsListState.ERROR_STATE("Sorry, no results found")
         }
     }
 
